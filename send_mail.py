@@ -1,30 +1,18 @@
 import smtplib
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
 
-login = os.getenv("LOGIN")
-password = os.getenv("PASSWORD")
-
-send_name = "bezdqrtest@yandex.ru"
-to_name = "test13221412@gmail.com"
-
-letter = """\
-From: bezdqrtest@yandex.ru
-To: test13221412@gmail.com
-Subject: Важно!
+def request(text, login, password, send_name, to_name, subject, server_address):
+    letter = f"""\
+From: {send_name}
+To: {to_name}
+Subject: {subject}
 Content-Type: text/plain; charset="UTF-8";
 
-Привет!"""
+{text}"""
 
-letter = letter.encode("UTF-8")
+    letter = letter.encode("UTF-8")
 
-server = smtplib.SMTP_SSL('smtp.yandex.ru:465')
-server.login(login, password)
-server.sendmail(send_name, to_name, letter)
-server.quit()
-
-#bezdqrtest
-#BezdqrTest123
-#xgmvmkgiohmveryd
+    server = smtplib.SMTP_SSL(server_address)
+    server.login(login, password)
+    server.sendmail(send_name, to_name, letter)
+    server.quit()
